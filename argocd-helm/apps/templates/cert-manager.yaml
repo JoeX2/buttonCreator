@@ -17,4 +17,7 @@ spec:
     repoURL: https://charts.jetstack.io
     targetRevision: v1.8.2
     chart: cert-manager
-  syncPolicy: {}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

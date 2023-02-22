@@ -20,5 +20,7 @@ spec:
     path: argocd-helm/charts/argo-cd
     repoURL: git@github.com:JoeX2/buttonCreator.git
     targetRevision: HEAD
-  syncPolicy: {}
-
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
