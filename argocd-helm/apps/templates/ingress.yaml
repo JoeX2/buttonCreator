@@ -16,8 +16,7 @@ spec:
   source:
     helm:
       valueFiles:
-      - values.yaml
-      path: argocd-helm/charts/helm/apps/ingress/
+      - argocd-helm/charts/helm/apps/ingress/values.yaml
     repoURL: git@github.com:JoeX2/buttonCreator.git
     targetRevision: HEAD
   syncPolicy:
