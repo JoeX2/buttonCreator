@@ -13,10 +13,11 @@ spec:
     server: https://kubernetes.default.svc
     namespace: default
   project: default
-  source:
+  sources:
     helm:
       valueFiles:
-      - argocd-helm/charts/helm/apps/ingress/values.yaml
+      - values.yaml
+    path: argocd-helm/charts/helm/apps/ingress
     repoURL: git@github.com:JoeX2/buttonCreator.git
     targetRevision: HEAD
   syncPolicy:
