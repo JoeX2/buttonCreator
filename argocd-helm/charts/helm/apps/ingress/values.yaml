@@ -1,0 +1,15 @@
+ingress:
+  ingressClass: traefik
+  oauth2_proxy: []
+  without_proxy:
+    argocd:
+      argo-cd-argocd-server:
+        domainName: argocd.joex2.dk
+        subPath:
+          argo-cd-argocd-dex-server:
+            path: /dex
+            port: 5557
+
+certificate:
+  certIssuer: letsencrypt
+  kind: Issuer

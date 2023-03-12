@@ -1,0 +1,129 @@
+{{- $rootValues := .Values -}}
+{{- $path := "/" }}
+{{- $pathType := "Prefix" }}
+{{- if eq .Values.ingress.ingressClass "gce" }}
+{{- $path = "/*" }}
+{{- $pathType = "ImplementationSpecific" }}
+{{- end }}
+{{- $skip := "true" }}
+{{- range $ingress, $val := .Values.ingress.oauth2_proxy }}
+{{- if $val }}
+{{- if $val.domainName }}
+{{- $skip = "false" }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if eq $skip "false" }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: "{{ .Values.certificate.certIssuer }}"
+    cert-manager.io/issuer-kind: "{{ .Values.certificate.kind }}"
+    app.kubernetes.io/managed-by: "Helm"
+  labels:
+    app: frontend
+  name: frontend-oauth2-proxy
+spec:
+  ingressClassName: "{{ .Values.ingress.ingressClass }}"
+  rules:
+{{- range $ingress, $val := .Values.ingress.oauth2_proxy }}
+{{- if $val }}
+{{- if $val.domainName }}
+  - host: "{{ $val.domainName }}"
+    http:
+      paths:
+      - backend:
+          service:
+            name: "{{ $ingress }}-oauth2-proxy"
+            port:
+              number: 4180
+        path: /
+        pathType: "{{ $pathType }}"
+{{- end }}
+{{- end }}
+{{- end }}
+  tls:
+  - hosts:
+{{- range $ingress, $val := .Values.ingress.oauth2_proxy }}
+{{- if $val }}
+{{- if $val.domainName }}
+    - "{{ $val.domainName }}"
+{{- end }}
+{{- end }}
+{{- end }}
+    secretName: grafana-oauth-certificate
+{{- end }}
+{{- range $namespaceName, $namespace := .Values.ingress.without_proxy }}
+{{- $skip := "true" }}
+{{- range $ingress, $val := $namespace }}
+{{- if $val }}
+{{- if $val.domainName }}
+{{- $skip = "false" }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- if eq $skip "false" }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/issuer: "{{ $rootValues.certificate.certIssuer }}"
+    cert-manager.io/issuer-kind: "Issuer"
+    app.kubernetes.io/managed-by: "Helm"
+  labels:
+    app: frontend
+  name: frontend
+  namespace: {{ $namespaceName }}
+spec:
+  ingressClassName: "{{ $rootValues.ingress.ingressClass }}"
+  rules:
+{{- range $ingress, $val := $namespace }}
+{{- if $val }}
+{{- if $val.domainName }}
+  - host: "{{ $val.domainName }}"
+    http:
+      paths:
+      - backend:
+          service:
+            name: "{{ $ingress }}"
+            port:
+{{- if $val.port }}
+              number: {{ $val.port }}
+{{- else }}
+              number: 80
+{{- end }}
+        path: /
+        pathType: "{{ $pathType }}"
+{{- if $val.subPath }}
+{{- range $subpath, $subval := $val.subPath}}
+      - backend:
+          service:
+            name: "{{ $subpath }}"
+            port:
+{{- if $subval.port }}
+              number: {{ $subval.port }}
+{{- else }}
+              number: 80
+{{- end }}
+        path: {{ $subval.path }}
+        pathType: "{{ $pathType }}"
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}
+  tls:
+  - hosts:
+{{- range $ingress, $val := $namespace }}
+{{- if $val }}
+{{- if $val.domainName }}
+    - "{{ $val.domainName }}"
+{{- end }}
+{{- end }}
+{{- end }}
+    secretName: frontend-certificate
+{{- end }}
+{{- end }}
