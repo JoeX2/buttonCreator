@@ -20,7 +20,4 @@ spec:
     path: argocd-helm/charts/helm/apps/ingress
     repoURL: git@github.com:JoeX2/buttonCreator.git
     targetRevision: HEAD
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+  syncPolicy: {}
