@@ -48,8 +48,8 @@ argo-cd:
         connectors:
         - config:
             issuer: https://accounts.google.com
-            clientID: "857704499941-dk0rtk4e129rlscaln8agp5oajeu95n5.apps.googleusercontent.com"
-            clientSecret: "4Er4beRcy-KvKzyHdH29rp-U"
+            clientID: "327842051322-3hedalis9mfn9csr4pg65aj8cptkjgfv.apps.googleusercontent.com"
+            clientSecret: "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"
           type: oidc
           id: google
           name: Google
