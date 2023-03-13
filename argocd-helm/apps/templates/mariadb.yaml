@@ -15,6 +15,7 @@ spec:
   project: default
   source:
     repoURL: https://charts.bitnami.com/bitnami
+    targetRevision: 11.5.3
     chart: mariadb
   syncPolicy:
     automated:
