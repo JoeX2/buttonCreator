@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: buttonCreator
+  namespace: argocd
+  labels:
+    app: buttonCreator
+    environment: default
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: buttonCreator
+  project: default
+  source:
+    helm:
+      valueFiles:
+      - values.yaml
+    path: argocd-helm/charts/helm/apps/buttonCreator
+    repoURL: git@github.com:JoeX2/buttonCreator.git
+    targetRevision: HEAD
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
