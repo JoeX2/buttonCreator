@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: buttonCreator
+  name: button-creator
   namespace: argocd
   labels:
-    app: buttonCreator
+    app: button-creator
     environment: default
   finalizers:
     - resources-finalizer.argocd.argoproj.io
@@ -17,7 +17,7 @@ spec:
     helm:
       valueFiles:
       - values.yaml
-    path: argocd-helm/charts/helm/apps/buttonCreator
+    path: argocd-helm/charts/helm/apps/button-creator
     repoURL: git@github.com:JoeX2/buttonCreator.git
     targetRevision: HEAD
   syncPolicy:
