@@ -15,7 +15,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 environment:
-  dbhost: mariadb
+  dbhost: mariadb.mariadb.svc
   dbname: my_database
   dbuser: root
   dbpassword: 'OmEnIuZX5d'
