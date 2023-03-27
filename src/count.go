@@ -5,7 +5,13 @@ import (
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
   "net/http"
+  "os"
 )
+
+func handleHealth(w http.ResponseWriter, r *http.Request) {
+  fmt.Println("got /health request")
+  fmt.Fprintln(w, "{\"status\":\"ok\"}")
+}
 
 func handleIncrement(w http.ResponseWriter, r *http.Request, stmtUpdate *sql.Stmt) {
   fmt.Println("got /increment request")
@@ -24,11 +30,18 @@ func handleClear(w http.ResponseWriter, r *http.Request, stmtClear *sql.Stmt) {
 }
 
 func main() {
-	db, err := sql.Open("mysql", "root:wQUMsqxELx@/my_database")
+  dbhost := os.Getenv("dbhost")
+  dbname := os.Getenv("dbname")
+  dbuser := os.Getenv("dbuser")
+  dbpassword := os.Getenv("dbpassword")
+  db_dsn := "" + dbuser + ":" + dbpassword + "@tcp(" + dbhost + ":3306)/" + dbname + ""
+  fmt.Println("Connection to db on DSN://" + db_dsn )
+  db, err := sql.Open("mysql", db_dsn)
 	if err != nil {
 		panic(err.Error())  // Just for example purpose. You should use proper error handling instead of panic
 	}
 	defer db.Close()
+  db.Ping()
 
 	// Prepare statement for increment count
 	stmtUpdate, err := db.Prepare("UPDATE test set tal = tal + 1 where id = 1")
@@ -44,6 +57,7 @@ func main() {
 	}
 	defer stmtClear.Close() // Close the statement when we leave main() / the program terminates
 
+  http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {handleHealth(w, r)})
   http.HandleFunc("/increment", func(w http.ResponseWriter, r *http.Request) {handleIncrement(w, r, stmtUpdate)})
   http.HandleFunc("/clear", func(w http.ResponseWriter, r *http.Request) {handleClear(w, r, stmtClear)})
   err = http.ListenAndServe(":3333", nil)
