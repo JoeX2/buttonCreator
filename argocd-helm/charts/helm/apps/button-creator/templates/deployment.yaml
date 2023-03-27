@@ -38,6 +38,8 @@ spec:
         ports:
         - name: health
           containerPort: 3333
+        - name: http
+          containerPort: 3333
         livenessProbe:
           httpGet:
             path: /health
