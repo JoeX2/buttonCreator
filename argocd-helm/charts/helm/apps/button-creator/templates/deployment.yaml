@@ -28,13 +28,13 @@ spec:
         imagePullPolicy: Always
         env:
           - name: dbhost
-            value: {{ environment.dbhost }}
+            value: {{ .Values.environment.dbhost }}
           - name: dbname
-            value: {{ environment.dbname }}
+            value: {{ .Values.environment.dbname }}
           - name: dbuser
-            value: {{ environment.dbuser }}
+            value: {{ .Values.environment.dbuser }}
           - name: dbpassword
-            value: {{ environment.dbpassword }}
+            value: {{ .Values.environment.dbpassword }}
         ports:
         - name: health
           containerPort: 3333
