@@ -11,7 +11,7 @@ metadata:
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: buttonCreator
+    namespace: button-creator
   project: default
   source:
     helm:
