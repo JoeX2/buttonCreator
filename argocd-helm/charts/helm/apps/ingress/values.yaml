@@ -2,6 +2,9 @@ ingress:
   ingressClass: traefik
   oauth2_proxy: []
   without_proxy:
+    button-creator:
+      button-creator:
+        domainName: button-creator.joex2.dk
     argocd:
       argo-cd-argocd-server:
         domainName: argocd.joex2.dk
@@ -9,7 +12,6 @@ ingress:
           argo-cd-argocd-dex-server:
             path: /dex
             port: 5557
-
 certificate:
   certIssuer: letsencrypt
   kind: Issuer
