@@ -5,6 +5,7 @@ ingress:
     button-creator:
       button-creator:
         domainName: button-creator.joex2.dk
+        port: 8080
     argocd:
       argo-cd-argocd-server:
         domainName: argocd.joex2.dk
