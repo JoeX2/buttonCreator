@@ -29,6 +29,23 @@ func handleClear(w http.ResponseWriter, r *http.Request, stmtClear *sql.Stmt) {
   }
 }
 
+func handleGetCount(w http.ResponseWriter, r *http.Request, stmtGetNumber *sql.Stmt) {
+  fmt.Println("got /getCount request")
+  rows, err := stmtGetNumber.Query()
+  if err != nil {
+    panic(err.Error())
+  }
+  defer rows.Close()
+
+  var count int
+  rows.Next()
+  err = rows.Scan(&count)
+  if err != nil {
+    panic(err.Error())
+  }
+  fmt.Fprintln(w, count)
+}
+
 func main() {
   dbhost := os.Getenv("dbhost")
   dbname := os.Getenv("dbname")
@@ -57,9 +74,16 @@ func main() {
 	}
 	defer stmtClear.Close() // Close the statement when we leave main() / the program terminates
 
+  stmtGetNumber, err := db.Prepare("SELECT tal FROM test where id = 1")
+  if err != nil  {
+    panic(err.Error())
+  }
+  defer stmtGetNumber.Close()
+
   http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {handleHealth(w, r)})
   http.HandleFunc("/increment", func(w http.ResponseWriter, r *http.Request) {handleIncrement(w, r, stmtUpdate)})
   http.HandleFunc("/clear", func(w http.ResponseWriter, r *http.Request) {handleClear(w, r, stmtClear)})
+  http.HandleFunc("/getCount", func(w http.ResponseWriter, r *http.Request) {handleGetCount(w, r, stmtGetNumber)})
   err = http.ListenAndServe(":3333", nil)
 	if err != nil {
 		panic(err.Error()) // proper error handling instead of panic in your app
