@@ -14,9 +14,15 @@ spec:
     namespace: mariadb
   project: default
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    targetRevision: 11.5.3
-    chart: mariadb
+    - repoURL: https://charts.bitnami.com/bitnami
+        targetRevision: 11.5.3
+        chart: mariadb
+    - helm:
+        valueFiles:
+        - values.yaml
+      path: argocd-helm/charts/helm/apps/mariadb
+      repoURL: git@github.com:JoeX2/buttonCreator.git
+      targetRevision: HEAD
   syncPolicy:
     automated:
       prune: true
