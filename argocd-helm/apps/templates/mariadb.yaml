@@ -13,7 +13,7 @@ spec:
     server: https://kubernetes.default.svc
     namespace: mariadb
   project: default
-  source:
+  sources:
     - repoURL: https://charts.bitnami.com/bitnami
       targetRevision: 11.5.3
       chart: mariadb
