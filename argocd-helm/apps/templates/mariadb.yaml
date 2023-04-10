@@ -19,7 +19,7 @@ spec:
       chart: mariadb
       helm:
         valueFiles:
-          - $values/argocd-helm/charts/helm/apps/mariadb/local-values.yaml
+          - $values/../argocd-helm/charts/helm/apps/mariadb/local-values.yaml
     - repoURL: git@github.com:JoeX2/buttonCreator.git
       targetRevision: HEAD
       ref: values
