@@ -20,7 +20,7 @@ spec:
     - helm:
         valueFiles:
         - values.yaml
-      path: argocd-helm/charts/helm/apps/mariadb
+      path: $values/argocd-helm/charts/helm/apps/mariadb
       repoURL: git@github.com:JoeX2/buttonCreator.git
       targetRevision: HEAD
   syncPolicy:
