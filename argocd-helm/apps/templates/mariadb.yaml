@@ -17,12 +17,12 @@ spec:
     - repoURL: https://charts.bitnami.com/bitnami
         targetRevision: 11.5.3
         chart: mariadb
-    - helm:
+      helm:
         valueFiles:
-        - values.yaml
-      path: $values/argocd-helm/charts/helm/apps/mariadb
-      repoURL: git@github.com:JoeX2/buttonCreator.git
+          - $values/argocd-helm/charts/helm/apps/mariadb/values.yaml
+    - repoURL: git@github.com:JoeX2/buttonCreator.git
       targetRevision: HEAD
+      ref: values
   syncPolicy:
     automated:
       prune: true
