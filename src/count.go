@@ -44,6 +44,7 @@ func handleGetCount(w http.ResponseWriter, r *http.Request, stmtGetNumber *sql.S
     panic(err.Error())
   }
   fmt.Fprintln(w, count)
+  fmt.Println(count)
 }
 
 func main() {
