@@ -4,8 +4,11 @@ ingress:
   without_proxy:
     button-creator:
       button-creator:
-        domainName: button-creator.joex2.dk
+        domainName: button-creator-backend.joex2.dk
         port: 8080
+      button-creator-webapp:
+        domainName: button-creator.joex2.dk
+        port: 80
     argocd:
       argo-cd-argocd-server:
         domainName: argocd.joex2.dk
