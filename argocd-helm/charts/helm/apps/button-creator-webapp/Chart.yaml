@@ -1,0 +1,6 @@
+apiVersion: v2
+name: button-creator-webapp
+description: This app creates buttons
+type: application
+version: 0.1.0
+appVersion: "latest"
