@@ -9,6 +9,10 @@ ingress:
       button-creator-webapp:
         domainName: button-creator.joex2.dk
         port: 80
+        subPath:
+          button-creator:
+            path: /backend/
+            port: 8080
     argocd:
       argo-cd-argocd-server:
         domainName: argocd.joex2.dk
