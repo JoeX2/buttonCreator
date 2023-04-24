@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config
+data:
+  conf.js: |
+    var backendURL = "https://button-creator-backend.joex2.dk";

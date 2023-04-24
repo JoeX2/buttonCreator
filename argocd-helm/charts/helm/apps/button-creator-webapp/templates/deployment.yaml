@@ -32,4 +32,14 @@ spec:
         resources: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
+        volumeMounts:
+        - name: config
+          mountPath: /usr/share/nginx/html/conf
+      volumes:
+      - name: config
+        configMap:
+           name: config
+           items:
+           - key: conf.js
+             path: conf.js
       dnsPolicy: ClusterFirst
