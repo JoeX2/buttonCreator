@@ -19,6 +19,8 @@ func handleIncrement(w http.ResponseWriter, r *http.Request, stmtUpdate *sql.Stm
 	if err != nil {
 		panic(err.Error())  // Just for example purpose. You should use proper error handling instead of panic
 	}
+  w.Header().Set("Access-Control-Allow-Origin", "*")
+  w.WriteHeader(http.StatusOK)
 }
 
 func handleClear(w http.ResponseWriter, r *http.Request, stmtClear *sql.Stmt) {
@@ -27,6 +29,8 @@ func handleClear(w http.ResponseWriter, r *http.Request, stmtClear *sql.Stmt) {
   if err != nil {
     panic(err.Error())
   }
+  w.Header().Set("Access-Control-Allow-Origin", "*")
+  w.WriteHeader(http.StatusOK)
 }
 
 func handleGetCount(w http.ResponseWriter, r *http.Request, stmtGetNumber *sql.Stmt) {
@@ -43,6 +47,8 @@ func handleGetCount(w http.ResponseWriter, r *http.Request, stmtGetNumber *sql.S
   if err != nil {
     panic(err.Error())
   }
+  w.Header().Set("Access-Control-Allow-Origin", "*")
+  w.WriteHeader(http.StatusOK)
   fmt.Fprintln(w, count)
   fmt.Println(count)
 }
