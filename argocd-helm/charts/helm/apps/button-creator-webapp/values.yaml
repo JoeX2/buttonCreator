@@ -4,5 +4,5 @@ image:
   repository: flugdk/button-creator-webapp
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: "newversion"
 
