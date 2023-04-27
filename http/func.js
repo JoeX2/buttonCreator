@@ -22,7 +22,7 @@ function drawButtons(count) {
           <center>`);
     for( let i = 0; i < count; i++) {
         html.push(`
-              <input type="button" value="Add Botton" onclick="addButton();" ></input>`)
+              <input type="button" value="Add Button" onclick="addButton();" ></input>`)
     }
     html.push(`
           </center>`);
