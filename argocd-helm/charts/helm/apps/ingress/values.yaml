@@ -7,7 +7,7 @@ ingress:
         domainName: button-creator-backend.joex2.dk
         port: 8080
       button-creator-webapp:
-        domainName: button-creator.joex2.dk
+        domainName: new.joex2.dk
         port: 80
         subPath:
           button-creator:
